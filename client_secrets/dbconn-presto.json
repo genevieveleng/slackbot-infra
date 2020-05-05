@@ -1,0 +1,6 @@
+{
+    "email": "youremail@host.com",
+    "password": "yourpassword",
+    "host": "your-db-host-and-region.rds.amazonaws.com",
+    "port" : 3000
+}

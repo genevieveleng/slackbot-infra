@@ -1,0 +1,5 @@
+{
+    "user": "username",
+    "password": "password",
+    "host": "your-db-host-and-region.rds.amazonaws.com"
+}

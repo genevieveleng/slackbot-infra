@@ -1,0 +1,29 @@
+{
+  "name": "slackbot-infra",
+  "version": "1.0.0",
+  "description": "Slackbot infra created by Genevieve",
+  "main": "app.js",
+  "scripts": {
+    "test": "node mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:genevieveleng/slackbot-infra.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "app-root-path": "^2.2.1",
+    "aws-sdk": "^2.486.0",
+    "axios": "^0.19.0",
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.17.1",
+    "mongodb": "^3.2.7",
+    "mysql": "^2.17.1",
+    "presto-client": "^0.7.0",
+    "promise": "^8.0.3",
+    "uuid": "^3.3.2",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^3.9.0"
+  }
+}
