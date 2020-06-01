@@ -3,11 +3,11 @@ const winston = require(`${appRoot}/winston`);
 const axios = require('axios');
 
 module.exports = async (body)=>{
-    winston.debug('/slackbot_name/post/get-stats.js');
+    winston.debug('/slackbot_name/post/get-stats/index.js');
 
     // using this to check what type of analytics to run using body.text_array[0]
     try {
-        const run_stats = require(`${appRoot}/interfaces/addison/post/get-stats/${body.text_array[0]}`);
+        const run_stats = require(`${appRoot}/interfaces/slackbot_name/post/get-stats/${body.text_array[0]}`);
         run_stats(body);
     } catch (e) {
         winston.debug(e);
