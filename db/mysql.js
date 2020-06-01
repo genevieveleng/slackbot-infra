@@ -6,7 +6,7 @@ const winston  = require(`${appRootPath}/winston`);
 module.exports = class MySQL {
 
     constructor(){
-        const db_config = util.get_bia_config();
+        const db_config = util.get_mysql_config();
         // this.db_conn = mysql.createConnection({
         //     host: db_config.host,
         //     user: db_config.user,

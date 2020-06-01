@@ -18,7 +18,7 @@ this.get_presto_config = () => {
       }
     return config;
 }
-this.get_bia_config = () => {
+this.get_mysql_config = () => {
     var config = [];
     try {
         var strConfigPath = path.join(appRoot.toString(), '.', 'client_secrets', 'dbconn-mysql.json');
@@ -31,6 +31,14 @@ this.get_bia_config = () => {
     return config;
 }
 
+//======================|
+//List of Bot Names     |
+//======================|
+
+this.get_bot_name = str_token => {
+    var bot_name_dict = {bot_token:'bot_name'};
+    return bot_name_dict[str_token];
+}
 
 //======================|
 //Simple function       |
