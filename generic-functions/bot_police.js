@@ -1,13 +1,13 @@
 const appRoot = require('app-root-path');
 const Mysql = require(`${appRoot}/db/mysql`);
 const winston = require(`${appRoot}/winston`);
+const util = require(`${appRoot}/util`);
 
 module.exports = class Police {
     constructor(body){
         this.body = body;
         this.db_conn = new Mysql();
-        var bot_name_dict = {y0urb0tT0ken:'slackbot_name'}; //https://api.slack.com/apps/APPID/general refer to "Verification Token"
-        this.bot_name = bot_name_dict[body.token];
+        this.bot_name = util.get_bot_name('<your_bot_token>')
         this.permission = false;
         this.insertId = 0;
     }
@@ -18,12 +18,12 @@ module.exports = class Police {
         var sql = `select *
             from db.user_permissions p 
             left join db.users u on p.user_id = u.id
-            where u.slack_user_id = '${_self.body.user_id}'
+            where upper(u.slack_user_id) = '${_self.body.user_id.toUpperCase()}'
             and p.status = 1
-            and p.bot_name = '${this.bot_name}'
-            and (p.commands = '${_self.body.command}'
+            and lower(p.bot_name) = '${this.bot_name}'
+            and (lower(p.commands) = '${_self.body.command.toLowerCase()}' 
             or p.commands = '*'
-            or p.commands = '${_self.body.command} *'`
+            or lower(p.commands) = '${_self.body.command.toLowerCase()} *'`
         if (typeof(_self.body.text_array) === 'undefined'){
             sql += `)`
         } else {
@@ -33,7 +33,7 @@ module.exports = class Police {
         return new Promise ((resolve, reject) => {
             this.db_conn.query(sql).then(
                 function(result) {
-                    winston.debug(result);
+                    winston.debug('%o',result);
                     results = result;
                     if (results.rows.length > 0){
                         resolve(_self.permission = true);
@@ -62,7 +62,7 @@ module.exports = class Police {
                 [_self.body.trigger_id,_self.body.user_id,_self.bot_name,dateNow.toISOString(),_self.body.command+ ' ' +_self.body.text,status]
             ).then(
                 function(result) {
-                    winston.debug(result);
+                    winston.debug('%o',result);
                     resolve(_self.insertId = result.rows.insertId);
                 }, function(err) {
                     winston.debug(err);
@@ -82,7 +82,7 @@ module.exports = class Police {
                 [_self.insertId]
             ).then(
                 function(result) {
-                    winston.debug(result);
+                    winston.debug('%o',result);
                     resolve(result);
                 }, function(err) {
                     winston.debug(err);
@@ -102,7 +102,7 @@ module.exports = class Police {
                 [dateNow.toISOString(), return_message, _self.insertId]
             ).then(
                 function(result) {
-                    winston.debug(result);
+                    winston.debug('%o',result);
                     resolve(result);
                 }, function(err) {
                     winston.debug(err);
