@@ -11,7 +11,7 @@ module.exports = async (body)=>{
     body['police'].mid_call();
     
     // prepare the sql to obtain details via id
-    var sql = `select * from schema.table
+    var sql = `select * from db.table
         where id = ${body.params['id']}`;
     
     // exceute the sql
